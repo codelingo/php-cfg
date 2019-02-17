@@ -63,12 +63,8 @@ abstract class Printer {
                         throw new \LogicException("Unknown bound variable scope");
                 }
             }
-            if(!empty($var->attributes)){
-                return $prefix . $var->name->value . $type. "[".$var->attributes['startFilePos']."-".$var->attributes['endFilePos']."]";
-            }
-            else {
-                return $prefix . $var->name->value . $type;
-            }
+            
+            return $prefix . $var->name->value . $type;
         } elseif ($var instanceof Temporary) {
             $id = $this->getVarId($var);
             if ($var->original) {
@@ -87,9 +83,6 @@ abstract class Printer {
 
     protected function renderOp(Op $op) {
         $result = $op->getType();
-        if(!empty($op->getAttributes()['startFilePos'])){    
-            $result.="[".$op->getAttributes()['startFilePos']."-".$op->getAttributes()['endFilePos']."]";
-        }
         if ($op instanceof Op\CallableOp) {
             $func = $op->getFunc();
             $result .= "<" . $func->name . ">";

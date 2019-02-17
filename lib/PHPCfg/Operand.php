@@ -14,7 +14,6 @@ abstract class Operand {
     public $assertions = [];
     public $ops = [];
     public $usages = [];
-    public $attributes = [];
 
     public function addUsage(Op $op) {
         foreach ($this->usages as $test) {

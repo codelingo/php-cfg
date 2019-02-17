@@ -18,8 +18,4 @@ class Variable extends Operand {
     public function __construct($name) {
         $this->name = $name;
     }
-
-    public function addAttributes($attributes){
-        $this->attributes  = $attributes;
-    }
 }

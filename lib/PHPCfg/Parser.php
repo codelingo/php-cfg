@@ -121,6 +121,7 @@ class Parser {
                 $block->phi[] = $phi;
             }
         }
+
         $this->ctx = $prevCtx;
     }
 
@@ -692,10 +693,7 @@ class Parser {
                     $this->currentClass
                 );
             }
-            $v = new Variable($this->parseExprNode($expr->name));
-            $v->addAttributes( $expr->getAttributes());
-            return $v;
-            //return new Variable($this->parseExprNode($expr->name), $expr->getAttributes());
+            return new Variable($this->parseExprNode($expr->name));
         } elseif ($expr instanceof Node\Name) {
             $isReserved = in_array(strtolower($expr->getLast()), ["int", "string", "array", "callable", "float", "bool"]);
             if ($isReserved) {
@@ -1261,11 +1259,7 @@ class Parser {
                 $defaultBlock,
                 $this->mapAttributes($param)
             );
-            $v = new Operand\Variable(new Operand\Literal($p->name->value));
-            $v->attributes = $param->getAttributes();
-            $p->result->original = $v;
-
-           // $p->result->original = new Operand\Variable(new Operand\Literal($p->name->value));
+            $p->result->original = new Operand\Variable(new Operand\Literal($p->name->value));
             $p->function = $func;
         }
         return $result;
