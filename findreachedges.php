@@ -3,7 +3,7 @@
 
 //Definition class
 class Definition{
-    public $filename;
+    public $file_name;
     public $start_offset;
     public $end_offset;
 
@@ -16,7 +16,7 @@ class Definition{
 
 //Reference class
 class Reference{
-    public $filename;
+    public $file_name;
     public $start_offset;
     public $end_offset;
 
