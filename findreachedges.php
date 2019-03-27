@@ -8,7 +8,7 @@ class Definition{
     public $end_offset;
 
     public function __construct($filename, $start_offset, $end_offset) {
-        $this->filename = $filename;
+        $this->file_name = $filename;
         $this->start_offset = (int)$start_offset;
         $this->end_offset = (int)$end_offset;
     }
@@ -21,7 +21,7 @@ class Reference{
     public $end_offset;
 
     public function __construct($filename, $start_offset, $end_offset) {
-        $this->filename = $filename;
+        $this->file_name = $filename;
         $this->start_offset = (int)$start_offset;
         $this->end_offset = (int)$end_offset;
     }
@@ -118,6 +118,8 @@ function isFunction($str){
 
 function findEdges($path){
     $files=listDir($path);
+    $final=array();
+    $count=0;
     foreach($files as $afile){
         $full_path=$path.$afile;
         // TODO fix the hard coded path below
@@ -289,7 +291,7 @@ function findEdges($path){
 
 
 
-        $final=array();
+        $results=array();
 
         if(!empty($definitions)) {
             foreach ($definitions as $key_array => $def_array) {
@@ -302,7 +304,7 @@ function findEdges($path){
                         }
                         $item=array();
                         $item = array("to"=>$temp, "from"=>$definition);
-                        array_push($final,$item);
+                        array_push($results,$item);
                     }
                 }
             }
@@ -322,19 +324,20 @@ function findEdges($path){
                         }
                         $item=array();
                         $item = array("to"=>$temp, "from"=>$corresponding_def1);
-                        array_push($final,$item);
+                        array_push($results,$item);
                         $item=array();
                         $item = array("to"=>$temp, "from"=>$corresponding_def2);
-                        array_push($final,$item);
+                        array_push($results,$item);
 
                     }
                 }
             }
         }
-        
-        
-        return $final;
+        $final[$count++]=$results;
+
     }//end foreach files as file
+
+    return $final;
 }
 //$path = $argv[1];
 //print_r(findEdges($path))
